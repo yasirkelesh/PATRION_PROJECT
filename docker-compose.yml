@@ -1,0 +1,61 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ./iot-system
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mqtt
+      - influxdb
+      - db  
+      
+    networks:
+      - my-shared-network
+  mqtt:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+    networks:
+      - my-shared-network
+  influxdb:
+    image: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup # İlk kurulum modunu etkinleştir
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin # Yönetici kullanıcı adı
+      - DOCKER_INFLUXDB_INIT_PASSWORD=0YEQiQN6Y7UyU2N # Yönetici şifresi
+      - DOCKER_INFLUXDB_INIT_ORG=myorg # Organizasyon adı
+      - DOCKER_INFLUXDB_INIT_BUCKET=iot_data # Varsayılan bucket adı
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=ERJf9jywPo8GPFAIIJBrB # Admin token (özelleştirilebilir)
+    restart: unless-stopped
+    networks:
+      - my-shared-network
+
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 0YEQiQN6Y7UyU2N  # Şifrenizi buraya yazın
+      POSTGRES_DB: iot_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my-shared-network
+
+volumes:
+  db-data:
+networks:
+  my-shared-network:
+    driver: bridge

@@ -1,0 +1,17 @@
+FROM node:18
+
+WORKDIR /usr/src/app
+
+# Bağımlılıkları kopyala
+COPY package*.json ./
+
+# Bağımlılıkları Docker içinde kur
+RUN npm install
+
+# Proje dosyalarını kopyala
+COPY . .
+
+# Uygulamayı derle
+RUN npm run build
+
+CMD ["npm", "start"]
