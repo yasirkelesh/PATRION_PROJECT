@@ -6,7 +6,7 @@ Bu sistem, IoT sensörlerden MQTT protokolü aracılığıyla veri toplayan, iş
 
 ## Sistem Mimarisi
 
-![Sistem Mimarisi](/Users/mukeles/Desktop/Ekran Resmi 2025-03-21 04.47.55.png)
+![Sistem Mimarisi](/Users/mukeles/Desktop/Mimari.png)
 
 ### Temel Bileşenler
 
