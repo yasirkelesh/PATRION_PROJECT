@@ -6,7 +6,7 @@ Bu sistem, IoT sensörlerden MQTT protokolü aracılığıyla veri toplayan, iş
 
 ## Sistem Mimarisi
 
-![Sistem Mimarisi](docs/images/system-architecture.png)
+![Sistem Mimarisi](/Users/mukeles/Desktop/Ekran Resmi 2025-03-21 04.47.55.png)
 
 ### Temel Bileşenler
 
@@ -160,10 +160,6 @@ docker-compose ps
 3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
 4. Branch'inize push edin (`git push origin feature/amazing-feature`)
 5. Pull Request oluşturun
-
-## Lisans
-
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.
 
 ## İletişim
 
