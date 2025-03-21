@@ -18,6 +18,7 @@ import { InfluxService } from './modules/influx/influx.service';
 import { InfluxController } from './modules/influx/influx.controller';
 import { LoggingModule } from './modules/logging/logging.module';
 import { LoggingMiddleware } from './modules/logging/logging.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -30,6 +31,9 @@ import { LoggingMiddleware } from './modules/logging/logging.middleware';
       database: 'iot_db',
       entities: [User, Sensor, Company, Role],
       synchronize: false,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true, // Make configuration available throughout the application
     }),
     UsersModule,
     SensorsModule,
